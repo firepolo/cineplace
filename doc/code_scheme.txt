@@ -1,0 +1,57 @@
+Table theaters {
+  id varchar(36) [pk]
+  name varchar(255)
+  street varchar(128)
+  zip varchar(4)
+  city varchar(64)
+}
+
+Table rooms {
+  id varchar(36) [pk]
+  name varchar(255)
+  seats int
+  theater_id varchar(36)
+}
+
+Ref: rooms.theater_id > theaters.id
+
+Table films {
+  id varchar(36) [pk]
+  name varchar(255)
+}
+
+Table sessions {
+  id varchar(36) [pk]
+  start_date datetime
+  end_date datetime
+  seat_available int
+  room_id varchar(36)
+  film_id varchar(36)
+}
+
+Ref: sessions.room_id > rooms.id
+Ref: sessions.film_id > films.id
+
+Table prices {
+  id varchar(36) [pk]
+  name varchar(255)
+  price decimal
+}
+
+Table users {
+  id varchar(36) [pk]
+  email varchar(255)
+  password varchar(255)
+}
+
+Table reservations {
+  id varchar(36) [pk]
+  is_online bool
+  is_paid bool
+  user_id varchar(36)
+  session_id varchar(36)
+  price_id varchar(36)
+}
+Ref: reservations.user_id > users.id
+Ref: reservations.session_id > sessions.id
+Ref: reservations.price_id > prices.id
